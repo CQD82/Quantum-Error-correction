@@ -52,6 +52,19 @@ The simulator models code-capacity noise, meaning perfect syndrome measurement. 
 - Workflows run with `contents: read` by default. Only the deploy job gets `pages: write` and `id-token: write`.
 - The site collects no data. The only browser storage is the theme preference.
 
+## Branch protection
+
+`main` is protected by the ruleset in `.github/rulesets/protect-main.json`, imported under **Settings → Rules → Rulesets**. The file is the source of truth: change it by pull request, then re-import it.
+
+| Rule | Effect |
+| --- | --- |
+| Pull request required | No direct pushes to `main`. Review threads must be resolved before merging. |
+| Required status check `test` | CI must pass on a branch that is up to date with `main`. |
+| Block force pushes | History on `main` cannot be rewritten. |
+| Block deletion | `main` cannot be deleted. |
+
+Required approvals are set to 0 because the repository has a single maintainer, and GitHub does not let authors approve their own pull requests. Raise `required_approving_review_count` to 1 once a second maintainer has write access.
+
 ## Credits
 
 - Idea and content: Shahram Dehdashti (responsible for content, see Impressum on the site)
