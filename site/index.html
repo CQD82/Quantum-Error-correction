@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="description" content="Interactive quantum error correction toolkit: surface code lab, threshold simulator, stabilizer syndrome calculator and surface code resource estimator.">
+<title>Quantum Error Correction</title>
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=JetBrains+Mono:wght@400;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<link rel="stylesheet" href="assets/css/site.css">
+</head>
+<body>
+<header class="masthead">
+  <div class="masthead-inner">
+    <a class="brand" href="#top" aria-label="Quantum Error Correction home">
+      <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true">
+        <rect class="bm-x" x="4" y="4" width="12" height="12"></rect>
+        <rect class="bm-z" x="16" y="4" width="12" height="12"></rect>
+        <rect class="bm-z" x="4" y="16" width="12" height="12"></rect>
+        <rect class="bm-x" x="16" y="16" width="12" height="12"></rect>
+        <circle class="bm-q" cx="16" cy="16" r="3.2"></circle>
+      </svg>
+      <span>QEC<span class="brand-dim"> toolkit</span></span>
+    </a>
+    <nav class="nav" aria-label="Sections">
+      <a href="#lab">Lab</a>
+      <a href="#threshold">Threshold</a>
+      <a href="#syndrome">Syndromes</a>
+      <a href="#estimator">Estimator</a>
+      <a href="#codes">Codes</a>
+      <a href="#history">History</a>
+      <a href="#resources">Resources</a>
+    </nav>
+    <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch colour theme">
+      <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="7"></circle><path d="M10 3a7 7 0 0 1 0 14z"></path></svg>
+    </button>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero" id="lab" aria-labelledby="hero-title">
+    <div class="hero-copy">
+      <p class="eyebrow">Rotated surface code · distance <span id="hero-d">5</span></p>
+      <h1 id="hero-title">Find the error without looking at the qubit.</h1>
+      <p class="lede">Quantum error correction measures <em>parities</em> of neighbouring qubits, never the qubits themselves. An error lights up the checks around it. A decoder reads that pattern and works out a correction without collapsing the stored information.</p>
+      <ol class="how">
+        <li><span class="k">Inject</span><span>Click a data qubit to apply an X, Z or Y error.</span></li>
+        <li><span class="k">Measure</span><span>Checks that anticommute with the error light up as defects.</span></li>
+        <li><span class="k">Decode</span><span>Minimum-weight matching pairs defects and applies a correction.</span></li>
+      </ol>
+      <div class="legend" aria-label="Legend">
+        <span><i class="sw sw-x"></i>X check (detects Z)</span>
+        <span><i class="sw sw-z"></i>Z check (detects X)</span>
+        <span><i class="sw sw-def"></i>Defect</span>
+        <span><i class="sw sw-corr"></i>Correction</span>
+      </div>
+    </div>
+
+    <div class="lab" aria-label="Surface code lab">
+      <div class="lab-bar">
+        <div class="field">
+          <label for="lab-d">Distance</label>
+          <select id="lab-d">
+            <option value="3">d = 3 · 17 qubits</option>
+            <option value="5" selected>d = 5 · 49 qubits</option>
+            <option value="7">d = 7 · 97 qubits</option>
+            <option value="9">d = 9 · 161 qubits</option>
+          </select>
+        </div>
+        <div class="field">
+          <span class="field-label" id="brush-label">Error to apply</span>
+          <div class="seg" role="radiogroup" aria-labelledby="brush-label">
+            <button type="button" role="radio" class="seg-x" data-brush="X" aria-checked="true">X</button>
+            <button type="button" role="radio" class="seg-z" data-brush="Z" aria-checked="false">Z</button>
+            <button type="button" role="radio" class="seg-y" data-brush="Y" aria-checked="false">Y</button>
+          </div>
+        </div>
+      </div>
+      <div class="lattice-wrap">
+        <svg id="lattice" class="lattice" role="img" aria-label="Surface code lattice"></svg>
+      </div>
+      <div class="lab-bar lab-actions">
+        <div class="field grow">
+          <label for="lab-p">Random noise <output id="lab-p-out" for="lab-p">5%</output></label>
+          <input id="lab-p" type="range" min="1" max="20" value="5" step="1">
+        </div>
+        <button type="button" class="btn" id="lab-random">Sprinkle errors</button>
+        <button type="button" class="btn btn-primary" id="lab-decode">Decode</button>
+        <button type="button" class="btn btn-ghost" id="lab-clear">Clear</button>
+      </div>
+      <div class="lab-status" id="lab-status" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section class="tool" id="threshold" aria-labelledby="threshold-title">
+    <header class="tool-head">
+      <p class="eyebrow">Monte Carlo</p>
+      <h2 id="threshold-title">Threshold simulator</h2>
+      <p class="tool-lede">Below the threshold, adding qubits lowers the logical error rate. Above it, bigger codes do worse. This runs the decoder from the lab above on thousands of random errors in your browser and plots where the curves cross.</p>
+    </header>
+    <div class="tool-body tool-split">
+      <form class="panel" id="sim-form" novalidate>
+        <div class="field">
+          <label for="sim-model">Noise model</label>
+          <select id="sim-model">
+            <option value="bitflip">Bit flip (X with probability p)</option>
+            <option value="phaseflip">Phase flip (Z with probability p)</option>
+            <option value="depolarizing" selected>Depolarizing (X, Y, Z each p/3)</option>
+          </select>
+        </div>
+        <fieldset class="field">
+          <legend>Distances</legend>
+          <div class="checks">
+            <label><input type="checkbox" id="sim-d3" value="3" checked> d = 3</label>
+            <label><input type="checkbox" id="sim-d5" value="5" checked> d = 5</label>
+            <label><input type="checkbox" id="sim-d7" value="7" checked> d = 7</label>
+          </div>
+        </fieldset>
+        <div class="field">
+          <label for="sim-trials">Trials per point</label>
+          <select id="sim-trials">
+            <option value="300">300 · quick</option>
+            <option value="1000" selected>1,000</option>
+            <option value="4000">4,000 · precise</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="sim-seed">Random seed</label>
+          <input id="sim-seed" type="number" min="1" max="999999" step="1" value="2024" inputmode="numeric">
+        </div>
+        <button type="submit" class="btn btn-primary" id="sim-run">Run simulation</button>
+        <p class="hint" id="sim-progress" aria-live="polite"></p>
+      </form>
+      <figure class="chart-card">
+        <div class="chart-wrap"><svg id="sim-chart" class="chart" role="img" aria-label="Logical error rate against physical error rate"></svg></div>
+        <figcaption id="sim-caption">Code-capacity noise: perfect syndrome measurement, decoded independently for X and Z. Shaded bands are 95% Wilson intervals.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="tool" id="syndrome" aria-labelledby="syndrome-title">
+    <header class="tool-head">
+      <p class="eyebrow">Stabilizer formalism</p>
+      <h2 id="syndrome-title">Syndrome calculator</h2>
+      <p class="tool-lede">Type a Pauli error and see which stabilizers it anticommutes with. A distance-3 code gives every single-qubit error its own syndrome, which is what makes it correctable.</p>
+    </header>
+    <div class="tool-body tool-split">
+      <form class="panel" id="syn-form" novalidate>
+        <div class="field">
+          <label for="syn-code">Code</label>
+          <select id="syn-code">
+            <option value="bitflip">3-qubit bit-flip · [[3,1,1]]</option>
+            <option value="five">Five-qubit code · [[5,1,3]]</option>
+            <option value="steane" selected>Steane code · [[7,1,3]]</option>
+            <option value="shor">Shor code · [[9,1,3]]</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="syn-error">Error (Pauli string)</label>
+          <input id="syn-error" class="mono" type="text" value="IIIIXII" autocomplete="off" spellcheck="false" aria-describedby="syn-error-msg">
+          <p class="field-msg" id="syn-error-msg" aria-live="polite"></p>
+        </div>
+        <div class="row-btns">
+          <button type="button" class="btn" id="syn-random">Random single-qubit error</button>
+          <button type="button" class="btn btn-ghost" id="syn-reset">Identity</button>
+        </div>
+        <p class="hint" id="syn-note"></p>
+      </form>
+      <div class="panel panel-flat">
+        <div class="syn-head">
+          <span class="field-label">Syndrome</span>
+          <code class="syn-bits" id="syn-bits"></code>
+        </div>
+        <div class="table-scroll">
+          <table class="syn-table">
+            <thead><tr><th scope="col">#</th><th scope="col">Stabilizer</th><th scope="col">Result</th></tr></thead>
+            <tbody id="syn-rows"></tbody>
+          </table>
+        </div>
+        <p class="syn-diagnosis" id="syn-diagnosis" aria-live="polite"></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="tool" id="estimator" aria-labelledby="estimator-title">
+    <header class="tool-head">
+      <p class="eyebrow">Planning</p>
+      <h2 id="estimator-title">Resource estimator</h2>
+      <p class="tool-lede">How many physical qubits does a fault-tolerant computation need? This uses the standard surface code scaling rule p<sub>L</sub> ≈ A·(p/p<sub>th</sub>)<sup>(d+1)/2</sup>, with an error budget split evenly across every logical qubit and every code cycle.</p>
+    </header>
+    <div class="tool-body tool-split">
+      <form class="panel" id="est-form" novalidate>
+        <div class="field-grid">
+          <div class="field"><label for="est-p">Physical error rate p</label><input id="est-p" type="number" step="any" min="0" value="0.001" inputmode="decimal"></div>
+          <div class="field"><label for="est-pth">Threshold p<sub>th</sub></label><input id="est-pth" type="number" step="any" min="0" value="0.01" inputmode="decimal"></div>
+          <div class="field"><label for="est-a">Prefactor A</label><input id="est-a" type="number" step="any" min="0" value="0.1" inputmode="decimal"></div>
+          <div class="field"><label for="est-n">Logical qubits</label><input id="est-n" type="number" step="1" min="1" value="100" inputmode="numeric"></div>
+          <div class="field"><label for="est-cycles">Code cycles</label><input id="est-cycles" type="number" step="any" min="1" value="100000000" inputmode="numeric"></div>
+          <div class="field"><label for="est-budget">Total failure budget</label><input id="est-budget" type="number" step="any" min="0" max="1" value="0.01" inputmode="decimal"></div>
+          <div class="field"><label for="est-cycle">Cycle time (µs)</label><input id="est-cycle" type="number" step="any" min="0" value="1" inputmode="decimal"></div>
+        </div>
+        <p class="field-msg" id="est-msg" aria-live="polite"></p>
+      </form>
+      <div class="panel panel-flat">
+        <dl class="kpis" id="est-kpis"></dl>
+        <div class="table-scroll">
+          <table class="data-table">
+            <thead><tr><th scope="col">Distance</th><th scope="col">p<sub>L</sub> per cycle</th><th scope="col">Qubits / logical</th><th scope="col">Meets target</th></tr></thead>
+            <tbody id="est-rows"></tbody>
+          </table>
+        </div>
+        <p class="hint">Counts data and measurement qubits of a rotated surface code patch only. Routing space, magic-state factories and decoder latency add substantial overhead in a real architecture.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="ref" id="codes" aria-labelledby="codes-title">
+    <header class="tool-head">
+      <p class="eyebrow">Reference</p>
+      <h2 id="codes-title">Code atlas</h2>
+      <p class="tool-lede">[[n, k, d]]: n physical qubits encode k logical qubits, and the code detects any error on fewer than d qubits.</p>
+    </header>
+    <div class="table-scroll">
+      <table class="data-table atlas">
+        <thead><tr><th scope="col">Code</th><th scope="col">[[n, k, d]]</th><th scope="col">Family</th><th scope="col">Why it matters</th></tr></thead>
+        <tbody>
+          <tr><td>Bit-flip repetition</td><td class="mono">[[3,1,1]]</td><td>Repetition</td><td>Majority vote for qubits. Corrects one X error but no phase errors.</td></tr>
+          <tr><td>Shor code</td><td class="mono">[[9,1,3]]</td><td>Concatenated</td><td>First quantum code to correct an arbitrary single-qubit error (1995).</td></tr>
+          <tr><td>Steane code</td><td class="mono">[[7,1,3]]</td><td>CSS · colour code</td><td>Every Clifford gate is transversal, which makes fault-tolerant logic simple.</td></tr>
+          <tr><td>Five-qubit code</td><td class="mono">[[5,1,3]]</td><td>Cyclic stabilizer</td><td>Smallest code that corrects any single-qubit error. Saturates the quantum Hamming bound.</td></tr>
+          <tr><td>Rotated surface code</td><td class="mono">[[d²,1,d]]</td><td>Topological · CSS</td><td>Only nearest-neighbour checks on a square grid, and a threshold near 1% under circuit-level noise.</td></tr>
+          <tr><td>Bivariate bicycle ("gross") code</td><td class="mono">[[144,12,12]]</td><td>Quantum LDPC</td><td>Stores 12 logical qubits at distance 12 in 144 data qubits, at the cost of long-range connections.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="ref" id="history" aria-labelledby="history-title">
+    <header class="tool-head">
+      <p class="eyebrow">Timeline</p>
+      <h2 id="history-title">From theory to below threshold</h2>
+    </header>
+    <ol class="timeline">
+      <li><time>1995</time><p><strong>Shor's nine-qubit code.</strong> Shows that quantum information can be protected despite the no-cloning theorem.</p></li>
+      <li><time>1996</time><p><strong>Steane code and the five-qubit code.</strong> CSS construction links quantum codes to classical linear codes.</p></li>
+      <li><time>1997</time><p><strong>Kitaev's toric code; Gottesman's stabilizer formalism.</strong> Topological protection and the algebra used by every tool on this page.</p></li>
+      <li><time>2012</time><p><strong>Fowler et al., "Surface codes: Towards practical large-scale quantum computation."</strong> The standard reference for surface code resource estimates.</p></li>
+      <li><time>2023</time><p><strong>Google Quantum AI scales a logical qubit from d = 3 to d = 5</strong> and sees the logical error rate fall slightly. Harvard and QuEra run circuits on up to 48 logical qubits in neutral atoms.</p></li>
+      <li><time>2024</time><p><strong>Below threshold.</strong> Google reports a distance-7 surface code memory whose logical error rate drops by a factor of Λ ≈ 2.14 each time the distance grows by two. IBM proposes the [[144,12,12]] gross code.</p></li>
+    </ol>
+  </section>
+
+  <section class="ref" id="resources" aria-labelledby="resources-title">
+    <header class="tool-head">
+      <p class="eyebrow">Go further</p>
+      <h2 id="resources-title">Software and reading</h2>
+    </header>
+    <ul class="links">
+      <li><a href="https://github.com/quantumlib/Stim" rel="noopener noreferrer" target="_blank">Stim</a><span>Fast stabilizer circuit simulator for circuit-level noise and detector error models.</span></li>
+      <li><a href="https://github.com/oscarhiggott/PyMatching" rel="noopener noreferrer" target="_blank">PyMatching</a><span>Production minimum-weight perfect matching decoder. Pairs naturally with Stim.</span></li>
+      <li><a href="https://github.com/Qiskit/qiskit" rel="noopener noreferrer" target="_blank">Qiskit</a><span>Build and run circuits, including repetition-code experiments on real hardware.</span></li>
+      <li><a href="https://errorcorrectionzoo.org" rel="noopener noreferrer" target="_blank">Error Correction Zoo</a><span>Encyclopedia of classical and quantum codes with parameters and references.</span></li>
+      <li><a href="https://arxiv.org/abs/1208.0928" rel="noopener noreferrer" target="_blank">Fowler et al. (2012)</a><span>arXiv:1208.0928. Surface code memory, logic and qubit overhead.</span></li>
+      <li><a href="https://arxiv.org/abs/quant-ph/9705052" rel="noopener noreferrer" target="_blank">Gottesman (1997)</a><span>arXiv:quant-ph/9705052. PhD thesis that introduced the stabilizer formalism.</span></li>
+    </ul>
+  </section>
+</main>
+
+<footer class="foot">
+  <p>All simulations run locally in your browser. No data leaves this page.</p>
+  <p class="mono">⟨ψ|E†E|ψ⟩</p>
+</footer>
+
+<script type="module" src="assets/js/app.js"></script>
+</body>
+</html>

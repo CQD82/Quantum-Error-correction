@@ -1,0 +1,15 @@
+{
+  "name": "quantum-error-correction",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Interactive quantum error correction homepage and toolkit (static site, no runtime dependencies).",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "node scripts/serve.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "check": "node --check site/assets/js/qec.js && node --check site/assets/js/app.js && node --check scripts/serve.mjs && npm test"
+  }
+}
