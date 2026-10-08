@@ -3,14 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="description" content="Quantum Error Correction Made Simple. An interactive toolkit: surface code lab, threshold simulator, stabilizer syndrome calculator and surface code resource estimator.">
 <title>Quantum Error Correction Made Simple</title>
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=JetBrains+Mono:wght@400;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<link rel="preload" href="assets/fonts/bricolage-grotesque-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/source-serif-4-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/css/site.css">
 </head>
 <body>
@@ -35,7 +34,6 @@
       <a href="#codes">Codes</a>
       <a href="#history">History</a>
       <a href="#resources">Resources</a>
-      <a href="#impressum">Impressum</a>
     </nav>
     <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch colour theme">
       <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="7"></circle><path d="M10 3a7 7 0 0 1 0 14z"></path></svg>
@@ -326,11 +324,52 @@
       </div>
     </div>
   </section>
+
+  <section class="ref imprint privacy" id="datenschutz" aria-labelledby="datenschutz-title" lang="de">
+    <header class="tool-head">
+      <p class="eyebrow">Rechtliche Angaben</p>
+      <h2 id="datenschutz-title">Datenschutzerklärung</h2>
+      <p class="tool-lede">Diese Website erhebt so wenige Daten wie möglich: keine Cookies, kein Tracking, keine Analyse-Werkzeuge und keine Inhalte von Drittanbietern. Alle Simulationen laufen ausschließlich in Ihrem Browser.</p>
+    </header>
+    <div class="privacy-body">
+      <div class="imprint-block">
+        <h3>1. Verantwortlicher</h3>
+        <p>Verantwortlich im Sinne der Datenschutz-Grundverordnung (DSGVO) ist Shahram Dehdashti, Zur Bergwiese 5, 82152 Planegg, Deutschland, E-Mail: <a href="mailto:shahram.dehdashti@gmail.com">shahram.dehdashti@gmail.com</a>.</p>
+      </div>
+      <div class="imprint-block">
+        <h3>2. Hosting und Server-Logfiles</h3>
+        <p>Die Website wird über GitHub Pages bereitgestellt, einen Dienst der GitHub, Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, USA. Beim Aufruf der Seite verarbeitet GitHub technisch notwendige Verbindungsdaten, insbesondere Ihre IP-Adresse, Datum und Uhrzeit des Zugriffs, die aufgerufene Datei, die Referrer-URL sowie Browser- und Betriebssysteminformationen. Diese Daten werden benötigt, um die Website auszuliefern und ihre Sicherheit zu gewährleisten.</p>
+        <p>Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO. Unser berechtigtes Interesse liegt in der sicheren und zuverlässigen Bereitstellung der Website. Dabei können Daten in die USA übermittelt werden. Die Übermittlung stützt sich auf den Angemessenheitsbeschluss zum EU-US Data Privacy Framework (Art. 45 DSGVO), soweit GitHub danach zertifiziert ist, und im Übrigen auf Standardvertragsklauseln der EU-Kommission (Art. 46 Abs. 2 lit. c DSGVO). Einzelheiten finden Sie im <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" rel="noopener noreferrer" target="_blank">GitHub General Privacy Statement</a>.</p>
+      </div>
+      <div class="imprint-block">
+        <h3>3. Keine Cookies, kein Tracking</h3>
+        <p>Diese Website setzt keine Cookies und verwendet keine Analyse-, Tracking- oder Werbedienste. Schriftarten und alle Skripte werden direkt von dieser Website geladen. Es besteht keine Verbindung zu Google Fonts oder anderen Content-Delivery-Netzwerken.</p>
+      </div>
+      <div class="imprint-block">
+        <h3>4. Lokale Speicherung im Browser</h3>
+        <p>Wenn Sie über den Schalter oben rechts ausdrücklich ein helles oder dunkles Farbschema wählen, wird diese Einstellung unter dem Schlüssel <code>qec-theme</code> im lokalen Speicher (localStorage) Ihres Browsers abgelegt. Der Eintrag verlässt Ihr Gerät nicht und wird nicht an uns übertragen. Die Speicherung ist für den von Ihnen gewünschten Dienst unbedingt erforderlich (§ 25 Abs. 2 Nr. 2 TDDDG). Sie können den Eintrag jederzeit über die Einstellungen Ihres Browsers löschen.</p>
+      </div>
+      <div class="imprint-block">
+        <h3>5. Kontakt per E-Mail</h3>
+        <p>Wenn Sie uns per E-Mail kontaktieren, verarbeiten wir Ihre E-Mail-Adresse und den Inhalt Ihrer Nachricht, um Ihre Anfrage zu beantworten. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO, bei Anfragen im Zusammenhang mit einem Vertrag Art. 6 Abs. 1 lit. b DSGVO. Die Daten werden gelöscht, sobald Ihre Anfrage abschließend bearbeitet ist und keine gesetzlichen Aufbewahrungspflichten entgegenstehen.</p>
+      </div>
+      <div class="imprint-block">
+        <h3>6. Externe Links</h3>
+        <p>Diese Website enthält Links zu externen Angeboten, etwa GitHub, arXiv und der Error Correction Zoo. Erst wenn Sie einen solchen Link anklicken, werden Daten an den jeweiligen Anbieter übertragen. Für die dortige Verarbeitung ist allein der jeweilige Anbieter verantwortlich.</p>
+      </div>
+      <div class="imprint-block">
+        <h3>7. Ihre Rechte</h3>
+        <p>Sie haben das Recht auf Auskunft (Art. 15 DSGVO), Berichtigung (Art. 16), Löschung (Art. 17), Einschränkung der Verarbeitung (Art. 18), Datenübertragbarkeit (Art. 20) sowie Widerspruch gegen Verarbeitungen auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO (Art. 21). Wenden Sie sich dazu an die oben genannte Adresse.</p>
+        <p>Sie haben außerdem das Recht, sich bei einer Datenschutz-Aufsichtsbehörde zu beschweren (Art. 77 DSGVO). Zuständig ist das Bayerische Landesamt für Datenschutzaufsicht (BayLDA), Promenade 18, 91522 Ansbach.</p>
+      </div>
+      <p class="hint">Stand: Oktober 2026</p>
+    </div>
+  </section>
 </main>
 
 <footer class="foot">
   <p><strong>Quantum Error Correction Made Simple</strong> · All simulations run locally in your browser. No data leaves this page.</p>
-  <p><a href="#impressum">Impressum</a> · <span class="mono">⟨ψ|E†E|ψ⟩</span></p>
+  <p><a href="#impressum">Impressum</a> · <a href="#datenschutz">Datenschutz</a> · <span class="mono">⟨ψ|E†E|ψ⟩</span></p>
 </footer>
 
 <script type="module" src="assets/js/app.js"></script>

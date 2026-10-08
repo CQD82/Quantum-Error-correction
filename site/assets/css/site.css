@@ -1,3 +1,27 @@
+/* Fonts are self-hosted (SIL Open Font License, see assets/fonts/OFL.txt)
+   so no visitor data is sent to a font CDN. */
+@font-face {
+  font-family: 'Bricolage Grotesque';
+  font-style: normal;
+  font-weight: 500 800;
+  font-display: swap;
+  src: url('../fonts/bricolage-grotesque-latin.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Source Serif 4';
+  font-style: normal;
+  font-weight: 400 600;
+  font-display: swap;
+  src: url('../fonts/source-serif-4-latin.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 400 600;
+  font-display: swap;
+  src: url('../fonts/jetbrains-mono-latin.woff2') format('woff2');
+}
+
 /* Layout: a lab-bench page. The live lattice is the hero; each tool below is a
    two-column bench (controls left, readout right) that stacks on phones. */
 :root {
@@ -599,6 +623,9 @@ th { font-family: var(--font-display); font-weight: 600; font-size: 0.85rem; col
 .imprint-block { display: grid; align-content: start; gap: 6px; padding-block: 14px; border-top: 1px solid var(--line); min-width: 0; }
 .imprint-block h3 { font-size: 0.95rem; font-weight: 600; color: var(--muted); letter-spacing: 0; }
 .imprint-block p, .imprint-block address { margin: 0; font-style: normal; overflow-wrap: anywhere; }
+.privacy-body { display: grid; gap: 0; max-width: 46em; }
+.privacy-body .imprint-block p + p { margin-top: 8px; }
+.privacy-body .hint { padding-top: 14px; border-top: 1px solid var(--line); }
 .credits { margin: 0; display: grid; gap: 4px; }
 .credits div { display: grid; grid-template-columns: 8.5rem minmax(0, 1fr); gap: 8px; }
 .credits dt { color: var(--muted); }
