@@ -1,4 +1,4 @@
-# Quantum-Error-correction
+# Quantum Error Correction Made Simple
 
 An interactive homepage and toolkit for quantum error correction. It is a static site with no build step, no runtime dependencies, and no network calls apart from Google Fonts.
 

@@ -1,8 +1,8 @@
 {
-  "name": "quantum-error-correction",
+  "name": "quantum-error-correction-made-simple",
   "version": "1.0.0",
   "private": true,
-  "description": "Interactive quantum error correction homepage and toolkit (static site, no runtime dependencies).",
+  "description": "Quantum Error Correction Made Simple: interactive homepage and toolkit (static site, no runtime dependencies).",
   "type": "module",
   "engines": {
     "node": ">=20"
