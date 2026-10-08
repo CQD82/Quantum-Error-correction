@@ -1,3 +1,27 @@
+/* Fonts are self-hosted (SIL Open Font License, see assets/fonts/OFL.txt)
+   so no visitor data is sent to a font CDN. */
+@font-face {
+  font-family: 'Bricolage Grotesque';
+  font-style: normal;
+  font-weight: 500 800;
+  font-display: swap;
+  src: url('../fonts/bricolage-grotesque-latin.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Source Serif 4';
+  font-style: normal;
+  font-weight: 400 600;
+  font-display: swap;
+  src: url('../fonts/source-serif-4-latin.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 400 600;
+  font-display: swap;
+  src: url('../fonts/jetbrains-mono-latin.woff2') format('woff2');
+}
+
 /* Layout: a lab-bench page. The live lattice is the hero; each tool below is a
    two-column bench (controls left, readout right) that stacks on phones. */
 :root {
@@ -208,7 +232,54 @@ main {
   padding-inline: var(--gutter);
   padding-block: 0 48px;
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: 72px;
+}
+
+/* ---------- lecture ---------- */
+
+.lecture {
+  margin-top: clamp(20px, 3vw, 32px);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 380px);
+  gap: clamp(16px, 3vw, 32px);
+  align-items: center;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: clamp(16px, 2.6vw, 24px);
+}
+.lecture-copy { display: grid; gap: 10px; min-width: 0; }
+.lecture-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.lecture h2 { font-size: var(--step-2); font-weight: 700; }
+.lecture-text { margin: 0; color: var(--muted); }
+.speakers { margin: 0; display: flex; flex-wrap: wrap; gap: 8px 28px; }
+.speakers div { display: grid; gap: 0; }
+.speakers dt { font-family: var(--font-mono); font-size: var(--step--1); letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+.speakers dd { margin: 0; font-family: var(--font-display); font-weight: 700; font-size: var(--step-1); }
+
+.lecture-media {
+  aspect-ratio: 16 / 9;
+  max-width: 100%;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 8px;
+  border-radius: var(--radius);
+  border: 1px dashed color-mix(in oklab, var(--muted) 55%, transparent);
+  background:
+    repeating-linear-gradient(45deg, transparent 0 14px, color-mix(in oklab, var(--line) 55%, transparent) 14px 15px),
+    var(--sunk);
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+}
+.lecture-media svg { width: 48px; height: 48px; }
+.lecture-media circle { fill: var(--surface); stroke: var(--line); stroke-width: 2; }
+.lecture-media path { fill: var(--muted); }
+
+@media (max-width: 760px) {
+  .lecture { grid-template-columns: minmax(0, 1fr); }
 }
 
 /* ---------- hero / lab ---------- */
@@ -218,7 +289,7 @@ main {
   grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
   gap: clamp(24px, 4vw, 56px);
   align-items: start;
-  padding-top: clamp(28px, 5vw, 64px);
+  padding-top: clamp(8px, 2vw, 24px);
 }
 
 .hero-copy { display: grid; gap: 20px; min-width: 0; }
@@ -420,7 +491,7 @@ input[type="checkbox"] { accent-color: var(--accent); width: 16px; height: 16px;
 
 /* ---------- tool sections ---------- */
 
-.tool, .ref { display: grid; gap: 24px; min-width: 0; }
+.tool, .ref { display: grid; grid-template-columns: minmax(0, 1fr); gap: 24px; min-width: 0; }
 .tool { padding-top: 40px; border-top: 1px solid var(--line); }
 .ref { padding-top: 40px; border-top: 1px solid var(--line); }
 
@@ -541,6 +612,25 @@ th { font-family: var(--font-display); font-weight: 600; font-size: 0.85rem; col
 .links a { font-family: var(--font-display); font-weight: 700; font-size: 1.05rem; }
 .links span { color: var(--muted); font-size: 0.93rem; }
 
+/* ---------- impressum ---------- */
+
+.imprint-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 32px;
+  max-width: 52em;
+}
+.imprint-block { display: grid; align-content: start; gap: 6px; padding-block: 14px; border-top: 1px solid var(--line); min-width: 0; }
+.imprint-block h3 { font-size: 0.95rem; font-weight: 600; color: var(--muted); letter-spacing: 0; }
+.imprint-block p, .imprint-block address { margin: 0; font-style: normal; overflow-wrap: anywhere; }
+.privacy-body { display: grid; gap: 0; max-width: 46em; }
+.privacy-body .imprint-block p + p { margin-top: 8px; }
+.privacy-body .hint { padding-top: 14px; border-top: 1px solid var(--line); }
+.credits { margin: 0; display: grid; gap: 4px; }
+.credits div { display: grid; grid-template-columns: 8.5rem minmax(0, 1fr); gap: 8px; }
+.credits dt { color: var(--muted); }
+.credits dd { margin: 0; font-family: var(--font-display); font-weight: 600; }
+
 .foot {
   max-width: var(--maxw);
   margin: 0 auto;
@@ -555,6 +645,7 @@ th { font-family: var(--font-display); font-weight: 600; font-size: 0.85rem; col
   font-size: 0.9rem;
 }
 .foot p { margin: 0; }
+.foot a { color: inherit; }
 
 /* ---------- responsive ---------- */
 
@@ -562,6 +653,10 @@ th { font-family: var(--font-display); font-weight: 600; font-size: 0.85rem; col
   .hero { grid-template-columns: minmax(0, 1fr); }
   .hero h1 { max-width: 18ch; }
   .tool-split { grid-template-columns: minmax(0, 1fr); }
+}
+
+@media (max-width: 640px) {
+  .imprint-grid { grid-template-columns: minmax(0, 1fr); }
 }
 
 @media (max-width: 480px) {
