@@ -1,0 +1,52 @@
+{
+  "directed": false,
+  "multigraph": false,
+  "graph": {
+    "schema_version": 1,
+    "graphify_version": "0.9.80"
+  },
+  "nodes": [
+    {
+      "id": "readme_quantum_error_correction",
+      "label": "Quantum Error Correction",
+      "author": null,
+      "captured_at": null,
+      "community": 0,
+      "community_name": "Project Scope Stub",
+      "contributor": null,
+      "file_type": "concept",
+      "norm_label": "quantum error correction",
+      "source_file": "README.md",
+      "source_location": "L1",
+      "source_url": null
+    },
+    {
+      "id": "readme_readme",
+      "label": "README (Quantum-Error-correction)",
+      "author": null,
+      "captured_at": null,
+      "community": 0,
+      "community_name": "Project Scope Stub",
+      "contributor": null,
+      "file_type": "document",
+      "norm_label": "readme (quantum-error-correction)",
+      "source_file": "README.md",
+      "source_location": "L1",
+      "source_url": null
+    }
+  ],
+  "links": [
+    {
+      "source": "readme_readme",
+      "target": "readme_quantum_error_correction",
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "README.md",
+      "source_location": "L1",
+      "weight": 1.0
+    }
+  ],
+  "hyperedges": [],
+  "built_at_commit": "81da7abe75c7833a4551a60c024f8e4f7a13aa63"
+}
