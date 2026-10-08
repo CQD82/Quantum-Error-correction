@@ -27,6 +27,7 @@
       <span>QEC<span class="brand-dim"> Made Simple</span></span>
     </a>
     <nav class="nav" aria-label="Sections">
+      <a href="#lecture">Lecture</a>
       <a href="#lab">Lab</a>
       <a href="#threshold">Threshold</a>
       <a href="#syndrome">Syndromes</a>
@@ -43,6 +44,29 @@
 </header>
 
 <main id="top">
+  <!-- Lecture placeholder. When the recording is available, replace the
+       .lecture-media block with the video embed. Embedding a third-party
+       player (YouTube, Vimeo) also requires adding its origin to frame-src
+       in the Content-Security-Policy meta tag above. -->
+  <section class="lecture" id="lecture" aria-labelledby="lecture-title">
+    <div class="lecture-copy">
+      <div class="lecture-meta">
+        <p class="eyebrow">Lecture</p>
+        <span class="chip chip-info">Coming soon</span>
+      </div>
+      <h2 id="lecture-title">Quantum error correction lecture</h2>
+      <p class="lecture-text">Title, date and recording will be announced here.</p>
+      <dl class="speakers">
+        <div><dt>Speaker</dt><dd>Shahram Dehdashti</dd></div>
+        <div><dt>Speaker</dt><dd>Hamed</dd></div>
+      </dl>
+    </div>
+    <div class="lecture-media" role="img" aria-label="Lecture recording placeholder: coming soon">
+      <svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30"></circle><path d="M26 20 L46 32 L26 44 Z"></path></svg>
+      <span>Recording coming soon</span>
+    </div>
+  </section>
+
   <section class="hero" id="lab" aria-labelledby="hero-title">
     <div class="hero-copy">
       <p class="eyebrow">Rotated surface code · distance <span id="hero-d">5</span></p>
