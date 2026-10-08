@@ -50,6 +50,7 @@ The simulator models code-capacity noise, meaning perfect syndrome measurement. 
 
 - A strict Content-Security-Policy allows only same-origin scripts, styles and fonts. There are no inline scripts or styles and no third-party requests of any kind.
 - Workflows run with `contents: read` by default. Only the deploy job gets `pages: write` and `id-token: write`.
+- Every third-party action is pinned to a full commit SHA, with the release tag as a comment. Dependabot (`.github/dependabot.yml`) opens a weekly pull request when a newer release exists.
 - The site collects no data. The only browser storage is the theme preference.
 
 ## Branch protection
