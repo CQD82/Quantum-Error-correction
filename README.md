@@ -51,3 +51,8 @@ The simulator models code-capacity noise, meaning perfect syndrome measurement. 
 - A strict Content-Security-Policy allows only same-origin scripts and Google Fonts. There are no inline scripts or styles and no third-party JavaScript.
 - Workflows run with `contents: read` by default. Only the deploy job gets `pages: write` and `id-token: write`.
 - The site collects no data. The only browser storage is the theme preference.
+
+## Credits
+
+- Idea and content: Shahram Dehdashti (responsible for content, see Impressum on the site)
+- Design: Marcus Kollosch

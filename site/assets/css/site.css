@@ -208,6 +208,7 @@ main {
   padding-inline: var(--gutter);
   padding-block: 0 48px;
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: 72px;
 }
 
@@ -420,7 +421,7 @@ input[type="checkbox"] { accent-color: var(--accent); width: 16px; height: 16px;
 
 /* ---------- tool sections ---------- */
 
-.tool, .ref { display: grid; gap: 24px; min-width: 0; }
+.tool, .ref { display: grid; grid-template-columns: minmax(0, 1fr); gap: 24px; min-width: 0; }
 .tool { padding-top: 40px; border-top: 1px solid var(--line); }
 .ref { padding-top: 40px; border-top: 1px solid var(--line); }
 
@@ -541,6 +542,22 @@ th { font-family: var(--font-display); font-weight: 600; font-size: 0.85rem; col
 .links a { font-family: var(--font-display); font-weight: 700; font-size: 1.05rem; }
 .links span { color: var(--muted); font-size: 0.93rem; }
 
+/* ---------- impressum ---------- */
+
+.imprint-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 32px;
+  max-width: 52em;
+}
+.imprint-block { display: grid; align-content: start; gap: 6px; padding-block: 14px; border-top: 1px solid var(--line); min-width: 0; }
+.imprint-block h3 { font-size: 0.95rem; font-weight: 600; color: var(--muted); letter-spacing: 0; }
+.imprint-block p, .imprint-block address { margin: 0; font-style: normal; overflow-wrap: anywhere; }
+.credits { margin: 0; display: grid; gap: 4px; }
+.credits div { display: grid; grid-template-columns: 8.5rem minmax(0, 1fr); gap: 8px; }
+.credits dt { color: var(--muted); }
+.credits dd { margin: 0; font-family: var(--font-display); font-weight: 600; }
+
 .foot {
   max-width: var(--maxw);
   margin: 0 auto;
@@ -555,6 +572,7 @@ th { font-family: var(--font-display); font-weight: 600; font-size: 0.85rem; col
   font-size: 0.9rem;
 }
 .foot p { margin: 0; }
+.foot a { color: inherit; }
 
 /* ---------- responsive ---------- */
 
@@ -562,6 +580,10 @@ th { font-family: var(--font-display); font-weight: 600; font-size: 0.85rem; col
   .hero { grid-template-columns: minmax(0, 1fr); }
   .hero h1 { max-width: 18ch; }
   .tool-split { grid-template-columns: minmax(0, 1fr); }
+}
+
+@media (max-width: 640px) {
+  .imprint-grid { grid-template-columns: minmax(0, 1fr); }
 }
 
 @media (max-width: 480px) {
